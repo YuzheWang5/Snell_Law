@@ -1,5 +1,8 @@
+#include "rtweekend.h"
+
 #include "color.h"
 #include "ray.h"
+
 #include "vec3.h"
 #include "hittable_list.h"
 #include "sphere.h"
@@ -8,6 +11,7 @@
 #include "camera.h"
 #include <limits>
 #include "material.h"
+#include <bits/stdc++.h>
 
 using namespace std;
 
