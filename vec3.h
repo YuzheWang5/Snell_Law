@@ -7,6 +7,11 @@
 using std::sqrt;
 
 class vec3 {
+    bool near_zero() const {
+        // Return true if the vector is close to zero in all dimensions.
+        const auto s = 1e-8;
+        return (fabs(e[0]) < s) && (fabs(e[1]) < s) && (fabs(e[2]) < s);
+    }
     public:
         vec3() : e{0,0,0} {}
         vec3(double e0, double e1, double e2) : e{e0, e1, e2} {}
@@ -36,6 +41,10 @@ class vec3 {
         vec3& operator/=(const double t) {
             return *this *= 1/t;
         }
+        vec3 reflect(const vec3& v, const vec3& n) {
+    return v - 2*dot(v,n)*n;
+        }
+}
 
         double length() const {
             return sqrt(length_squared());
@@ -99,5 +108,32 @@ inline vec3 unit_vector(vec3 v) {
     return v / v.length();
 }
 
+inline static vec3 random() {
+        return vec3(random_double(), random_double(), random_double());
+}
+
+inline static vec3 random(double min, double max) {
+        return vec3(random_double(min,max), random_double(min,max), random_double(min,max));
+}
+
+inline vec3 random_in_unit_sphere() {
+    while (true) {
+        auto p = vec3::random(-1,1);
+        if (p.length_squared() >= 1) continue;
+        return p;
+    }
+}
+
+vec3 random_unit_vector() {
+    return unit_vector(random_in_unit_sphere());
+}
+
+vec3 random_in_hemisphere(const vec3& normal) {
+    vec3 in_unit_sphere = random_in_unit_sphere();
+    if (dot(in_unit_sphere, normal) > 0.0) // In the same hemisphere as the normal
+        return in_unit_sphere;
+    else
+        return -in_unit_sphere;
+}
 
 #endif
