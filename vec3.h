@@ -6,6 +6,7 @@
 
 using std::sqrt;
 
+
 class vec3 {
     public:
         vec3() : e{0,0,0} {}
@@ -50,6 +51,8 @@ class vec3 {
             const auto s = 1e-8;
             return (fabs(e[0]) < s) && (fabs(e[1]) < s) && (fabs(e[2]) < s);
         }
+
+
 
         inline static vec3 random() {
             return vec3(random_double(), random_double(), random_double());
@@ -109,6 +112,8 @@ inline vec3 cross(const vec3 &u, const vec3 &v) {
                 u.e[0] * v.e[1] - u.e[1] * v.e[0]);
 }
 
+
+
 inline vec3 unit_vector(vec3 v) {
     return v / v.length();
 }
@@ -144,5 +149,7 @@ inline vec3 refract(const vec3& uv, const vec3& n, double etai_over_etat) {
             vec3 r_out_parallel = -sqrt(fabs(1.0 - r_out_perp.length_squared())) * n;
             return r_out_perp + r_out_parallel;
 }
+
+
 
 #endif
